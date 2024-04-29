@@ -1,0 +1,71 @@
+<!-- Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+
+<idea-plugin>
+
+    <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
+    <id>com.f5.irules.sdk.language</id>
+
+    <!-- Text to display as name on Settings | Plugin page -->
+    <name>F5 IRules</name>
+
+    <!-- Product and plugin compatibility requirements -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <!-- Text to display as description on Settings | Plugin page -->
+    <description>
+        <![CDATA[
+      Implements F5 iRule syntax highlighting in IntelliJ IDEA Platform.
+    ]]>
+    </description>
+    <change-notes>
+        <![CDATA[
+      <ul>
+        <li><b>1.0.0</b> Release 2024.1 and later.</li>
+      </ul>
+    ]]>
+    </change-notes>
+
+    <!-- Text to display as company information on Settings | Plugin page -->
+    <vendor url="https://f5.com">F5 Inc.</vendor>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="IRules File" implementationClass="com.f5.irules.sdk.language.IRulesFileType"
+                  fieldName="INSTANCE"
+                  language="IRules" extensions="irul"/>
+        <lang.parserDefinition language="IRules"
+                               implementationClass="com.f5.irules.sdk.language.IRulesParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="IRules"
+                                       implementationClass="com.f5.irules.sdk.language.IRulesSyntaxHighlighterFactory"/>
+        <iconProvider implementation="com.f5.irules.sdk.language.IRulesPropertyIconProvider"/>
+        <colorSettingsPage implementation="com.f5.irules.sdk.language.IRulesColorSettingsPage"/>
+        <annotator language="JAVA" implementationClass="com.f5.irules.sdk.language.IRulesAnnotator"/>
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.f5.irules.sdk.language.IRulesLineMarkerProvider"/>
+        <completion.contributor language="IRules"
+                                implementationClass="com.f5.irules.sdk.language.IRulesCompletionContributor"/>
+        <psi.referenceContributor language="JAVA"
+                                  implementation="com.f5.irules.sdk.language.IRulesReferenceContributor"/>
+        <lang.refactoringSupport language="IRules"
+                                 implementationClass="com.f5.irules.sdk.language.IRulesRefactoringSupportProvider"/>
+        <lang.findUsagesProvider language="IRules"
+                                 implementationClass="com.f5.irules.sdk.language.IRulesFindUsagesProvider"/>
+        <lang.foldingBuilder language="JAVA" implementationClass="com.f5.irules.sdk.language.IRulesFoldingBuilder"/>
+        <gotoSymbolContributor implementation="com.f5.irules.sdk.language.IRulesChooseByNameContributor"/>
+        <lang.psiStructureViewFactory language="IRules"
+                                      implementationClass="com.f5.irules.sdk.language.IRulesStructureViewFactory"/>
+        <navbar implementation="com.f5.irules.sdk.language.IRulesStructureAwareNavbar"/>
+        <lang.formatter language="IRules"
+                        implementationClass="com.f5.irules.sdk.language.IRulesFormattingModelBuilder"/>
+        <codeStyleSettingsProvider implementation="com.f5.irules.sdk.language.IRulesCodeStyleSettingsProvider"/>
+        <langCodeStyleSettingsProvider
+                implementation="com.f5.irules.sdk.language.IRulesLanguageCodeStyleSettingsProvider"/>
+        <lang.commenter language="IRules" implementationClass="com.f5.irules.sdk.language.IRulesCommenter"/>
+        <lang.documentationProvider language="IRules"
+                                    implementationClass="com.f5.irules.sdk.language.IRulesDocumentationProvider"/>
+        <spellchecker.support language="IRules"
+                              implementationClass="com.f5.irules.sdk.language.IRulesSpellcheckingStrategy"/>
+    </extensions>
+
+</idea-plugin>

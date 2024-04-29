@@ -1,0 +1,31 @@
+// Copyright 2000-2022 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+{
+  parserClass="com.f5.irules.sdk.language.parser.IRulesParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="IRules"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.f5.irules.sdk.language.psi"
+  psiImplPackage="com.f5.irules.sdk.language.psi.impl"
+
+  elementTypeHolderClass="com.f5.irules.sdk.language.psi.IRulesTypes"
+  elementTypeClass="com.f5.irules.sdk.language.psi.IRulesElementType"
+  tokenTypeClass="com.f5.irules.sdk.language.psi.IRulesTokenType"
+
+  psiImplUtilClass="com.f5.irules.sdk.language.psi.impl.IRulesPsiImplUtil"
+}
+
+IRulesFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY {
+  pin=3
+  recoverWhile="recover_property"
+  mixin="com.f5.irules.sdk.language.psi.impl.IRulesNamedElementImpl"
+  implements="com.f5.irules.sdk.language.psi.IRulesNamedElement"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+}
+
+private recover_property ::= !(KEY|SEPARATOR|COMMENT)
